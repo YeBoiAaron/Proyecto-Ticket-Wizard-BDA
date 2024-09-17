@@ -1,2 +1,10 @@
-com\mycompany\proyecto_ticketwizard\Proyecto_ticketwizard.class
+GUIs\registrarUsuario$2.class
+GUIs\registrarUsuario$1.class
 objetos\Usuario.class
+dao\UsuariosDAO.class
+GUIs\registrarUsuario.class
+com\mycompany\proyecto_ticketwizard\Proyecto_ticketwizard.class
+interfaces\IUsuariosDAO.class
+GUIs\registrarUsuario$3.class
+GUIs\Login.class
+GUIs\Login$1.class

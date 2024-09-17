@@ -33,6 +33,15 @@ public class Usuario {
         this.saldo = saldo;
     }
 
+    public Usuario(String correo, String contraseña, String nombre_completo, Date fecha_nacimiento, String domicilio) {
+        this.correo = correo;
+        this.contraseña = contraseña;
+        this.nombre_completo = nombre_completo;
+        this.fecha_nacimiento = fecha_nacimiento;
+        this.domicilio = domicilio;
+    }
+    
+
     public String getId_usuario() {
         return id_usuario;
     }
