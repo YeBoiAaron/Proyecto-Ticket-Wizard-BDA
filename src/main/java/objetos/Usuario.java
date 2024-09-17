@@ -9,44 +9,45 @@ import java.util.Objects;
 
 /**
  *
- * @author Aaron
  */
 public class Usuario {
-    private String id_usuario;
+    private int id_usuario;
     private String correo;
-    private String contraseña;
+    private String contrasena;
     private String nombre_completo;
     private Date fecha_nacimiento;
+    private int edad;
     private String domicilio;
     private float saldo;
 
     public Usuario() {
     }
 
-    public Usuario(String id_usuario, String correo, String contraseña, String nombre_completo, Date fecha_nacimiento, String domicilio, float saldo) {
+    public Usuario(int id_usuario, String correo, String contrasena, String nombre_completo, Date fecha_nacimiento, int edad, String domicilio, float saldo) {
         this.id_usuario = id_usuario;
         this.correo = correo;
-        this.contraseña = contraseña;
+        this.contrasena = contrasena;
         this.nombre_completo = nombre_completo;
         this.fecha_nacimiento = fecha_nacimiento;
+        this.edad = edad;
         this.domicilio = domicilio;
         this.saldo = saldo;
     }
 
-    public Usuario(String correo, String contraseña, String nombre_completo, Date fecha_nacimiento, String domicilio) {
+    public Usuario(String correo, String contrasena, String nombre_completo, Date fecha_nacimiento, String domicilio) {
         this.correo = correo;
-        this.contraseña = contraseña;
+        this.contrasena = contrasena;
         this.nombre_completo = nombre_completo;
         this.fecha_nacimiento = fecha_nacimiento;
         this.domicilio = domicilio;
     }
     
 
-    public String getId_usuario() {
+    public int getId_usuario() {
         return id_usuario;
     }
 
-    public void setId_usuario(String id_usuario) {
+    public void setId_usuario(int id_usuario) {
         this.id_usuario = id_usuario;
     }
 
@@ -58,12 +59,12 @@ public class Usuario {
         this.correo = correo;
     }
 
-    public String getContraseña() {
-        return contraseña;
+    public String getContrasena() {
+        return contrasena;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
     public String getNombre_completo() {
@@ -80,6 +81,14 @@ public class Usuario {
 
     public void setFecha_nacimiento(Date fecha_nacimiento) {
         this.fecha_nacimiento = fecha_nacimiento;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
     }
 
     public String getDomicilio() {
@@ -100,7 +109,7 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return "Usuario{" + "id_usuario=" + id_usuario + ", correo=" + correo + ", nombre_completo=" + nombre_completo + ", fecha_nacimiento=" + fecha_nacimiento + ", domicilio=" + domicilio + ", saldo=" + saldo + '}';
+        return "Usuario{" + "id_usuario=" + id_usuario + ", correo=" + correo + ", nombre_completo=" + nombre_completo + ", fecha_nacimiento=" + fecha_nacimiento + ", edad=" + edad + ", domicilio=" + domicilio + ", saldo=" + saldo + '}';
     }
 
     @Override

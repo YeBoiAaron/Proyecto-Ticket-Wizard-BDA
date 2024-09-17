@@ -4,16 +4,12 @@
  */
 package interfaces;
 
-import objetos.Usuario;
+import java.sql.Connection;
 
 /**
  *
  */
-public interface IUsuariosDAO {
+public interface IConexionDB {
     
-    public boolean registrarUsuario(Usuario usuario);
-    
-    public boolean actualizarUsuario(Usuario usuario);
-    
-    public Usuario consultarUsuario(int id_usuario);
+    public Connection crearConexion();
 }
