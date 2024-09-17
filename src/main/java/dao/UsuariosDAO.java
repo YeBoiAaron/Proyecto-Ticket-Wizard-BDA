@@ -86,7 +86,7 @@ public class UsuariosDAO implements IUsuariosDAO {
         try {
             Connection connection = conexion.crearConexion();
             String buscarProducto = "SELECT * FROM usuarios WHERE id_usuario = ?";
-            PreparedStatement statement = connection.prepareStatement(buscarProducto);
+            PreparedStatement statement = connection.prepareStatement(buscarProducto, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, id_usuario);
             
             ResultSet resultado = statement.executeQuery();
