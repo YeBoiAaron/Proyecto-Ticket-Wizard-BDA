@@ -4,10 +4,14 @@
  */
 package interfaces;
 
+import objetos.Usuario;
+
 /**
  *
  * @author Aaron
  */
 public interface IUsuariosDAO {
+    
+    void RegistrarUsuario(Usuario u);
     
 }
