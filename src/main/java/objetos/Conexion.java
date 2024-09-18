@@ -15,9 +15,9 @@ import java.sql.SQLException;
  */
 public class Conexion {
     
-    private static final String URL = "jdbc:mysql://127.0.0.1:3306/?user=agenciafiscal";
-    private static final String USER = "agencia";
-    private static final String PASSWORD = "12345678";
+    private static final String URL = "jdbc:mysql://127.0.0.1:3306/?user=root";
+    private static final String USER = "root";
+    private static final String PASSWORD = "imperial";
 
     //"Imperial99" jdbc:mysql://127.0.0.1:3306/?user=root;
     /**
@@ -37,7 +37,7 @@ public class Conexion {
     conexion = DriverManager.getConnection(URL, USER, PASSWORD);
     System.out.println("Conexion exitosa a la base de datos.");
 
-    PreparedStatement statement = conexion.prepareStatement("USE agenciafiscal;");
+    PreparedStatement statement = conexion.prepareStatement("USE reventa_boletos;");
     statement.execute(); // Ejecutar la instrucción USE para seleccionar la base de datos
 
     return conexion;

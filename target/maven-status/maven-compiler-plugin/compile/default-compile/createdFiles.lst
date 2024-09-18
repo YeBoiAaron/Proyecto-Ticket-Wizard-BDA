@@ -5,6 +5,7 @@ dao\UsuariosDAO.class
 GUIs\registrarUsuario.class
 com\mycompany\proyecto_ticketwizard\Proyecto_ticketwizard.class
 interfaces\IUsuariosDAO.class
+objetos\Conexion.class
 GUIs\registrarUsuario$3.class
 GUIs\Login.class
 GUIs\Login$1.class
