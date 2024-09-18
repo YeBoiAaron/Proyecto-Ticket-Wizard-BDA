@@ -16,4 +16,6 @@ public interface IUsuariosDAO {
     public boolean actualizarUsuario(Usuario usuario);
     
     public Usuario consultarUsuario(int id_usuario);
+    
+    public Usuario consultarUsuario(String correo, String contrasena);
 }

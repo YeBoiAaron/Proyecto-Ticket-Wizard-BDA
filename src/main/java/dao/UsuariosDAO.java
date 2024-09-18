@@ -110,5 +110,36 @@ public class UsuariosDAO implements IUsuariosDAO {
             return null;
         }
     }
+
+    @Override
+    public Usuario consultarUsuario(String correo, String contrasena) {
+        try {
+            Connection connection = conexion.crearConexion();
+            String buscarProducto = "SELECT * FROM usuarios WHERE correo_electronico = ? AND contrasena";
+            PreparedStatement statement = connection.prepareStatement(buscarProducto, Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, correo);
+            statement.setString(2, contrasena);
+            
+            ResultSet resultado = statement.executeQuery();
+            
+            if(resultado.next()) {
+                Usuario u = new Usuario();
+                u.setId_usuario(resultado.getInt("id_usuario"));
+                u.setCorreo(resultado.getString("correo_electronico"));
+                u.setContrasena(resultado.getString("contrasena"));
+                u.setFecha_nacimiento(resultado.getDate("fecha_nacimiento"));
+                u.setEdad(resultado.getInt("edad"));
+                u.setDomicilio(resultado.getString("domicilio"));
+                u.setSaldo(resultado.getFloat("saldo"));
+                
+                return u;
+            }else {
+                return null;
+            }
+        }catch(SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     
 }
