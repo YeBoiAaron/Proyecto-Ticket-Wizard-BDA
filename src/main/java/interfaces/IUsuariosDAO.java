@@ -4,6 +4,7 @@
  */
 package interfaces;
 
+import BOs.UsuarioBO;
 import objetos.Usuario;
 
 /**
@@ -11,11 +12,11 @@ import objetos.Usuario;
  */
 public interface IUsuariosDAO {
     
-    public boolean registrarUsuario(Usuario usuario);
+    public boolean registrarUsuario(UsuarioBO usuario);
     
     public boolean actualizarUsuario(Usuario usuario);
     
-    public Usuario consultarUsuario(int id_usuario);
+    public UsuarioBO consultarUsuario(int id_usuario);
     
     public Usuario consultarUsuario(String correo, String contrasena);
 }

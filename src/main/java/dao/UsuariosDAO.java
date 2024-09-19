@@ -4,6 +4,7 @@
  */
 package dao;
 
+import BOs.UsuarioBO;
 import interfaces.IConexionDB;
 import interfaces.IUsuariosDAO;
 import java.sql.Connection;
@@ -26,10 +27,10 @@ public class UsuariosDAO implements IUsuariosDAO {
     }
     
     @Override
-    public boolean registrarUsuario(Usuario usuario) {
+    public boolean registrarUsuario(UsuarioBO usuario) {
         try {
             Connection connection = conexion.crearConexion();
-            String insertar = "INSERT INTO usuarios (correo_electronico,contraseña,nombre_completo,fecha_nacimiento,edad,domicilio,saldo) VALUES (?,?,?,?,?,?,?)";
+            String insertar = "INSERT INTO usuarios (correo_electronico,contraseña,nombre_completo,fecha_nacimiento,domicilio) VALUES (?,?,?,?,?)";
             PreparedStatement statement = connection.prepareStatement(insertar, Statement.RETURN_GENERATED_KEYS);
             
             // Establecer los valores de los atributos del usuario en el PreparedStatement
@@ -43,9 +44,9 @@ public class UsuariosDAO implements IUsuariosDAO {
 
             // Establecer la fecha en el PreparedStatement
             statement.setDate(4, sqlDate);
-            statement.setInt(5, usuario.getEdad());
-            statement.setString(6, usuario.getDomicilio());
-            statement.setFloat(7, usuario.getSaldo());
+            //statement.setInt(5, usuario.getEdad());
+            statement.setString(5, usuario.getDomicilio());
+            //statement.setFloat(7, usuario.getSaldo());
             
             // Ejecutar la consulta para insertar el registro
             statement.executeUpdate();
@@ -82,7 +83,7 @@ public class UsuariosDAO implements IUsuariosDAO {
     }
 
     @Override
-    public Usuario consultarUsuario(int id_usuario) {
+    public UsuarioBO consultarUsuario(int id_usuario) {
         try {
             Connection connection = conexion.crearConexion();
             String buscarProducto = "SELECT * FROM usuarios WHERE id_usuario = ?";
@@ -92,14 +93,14 @@ public class UsuariosDAO implements IUsuariosDAO {
             ResultSet resultado = statement.executeQuery();
             
             if(resultado.next()) {
-                Usuario u = new Usuario();
+                UsuarioBO u = new UsuarioBO();
                 u.setId_usuario(resultado.getInt("id_usuario"));
                 u.setCorreo(resultado.getString("correo_electronico"));
                 u.setContrasena(resultado.getString("contraseña"));
                 u.setFecha_nacimiento(resultado.getDate("fecha_nacimiento"));
-                u.setEdad(resultado.getInt("edad"));
+                //u.setEdad(resultado.getInt("edad"));
                 u.setDomicilio(resultado.getString("domicilio"));
-                u.setSaldo(resultado.getFloat("saldo"));
+                //u.setSaldo(resultado.getFloat("saldo"));
                 
                 return u;
             }else {

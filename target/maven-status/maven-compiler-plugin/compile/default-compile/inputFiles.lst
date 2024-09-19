@@ -1,11 +1,13 @@
 C:\Users\jesus\Desktop\BDA\Proyecto-Ticket-Wizard-BDA\src\main\java\interfaces\IUsuariosDAO.java
 C:\Users\jesus\Desktop\BDA\Proyecto-Ticket-Wizard-BDA\src\main\java\objetos\Conexion.java
 C:\Users\jesus\Desktop\BDA\Proyecto-Ticket-Wizard-BDA\src\main\java\dao\Conexion.java
-C:\Users\jesus\Desktop\BDA\Proyecto-Ticket-Wizard-BDA\src\main\java\GUIs\registrarUsuario.java
+C:\Users\jesus\Desktop\BDA\Proyecto-Ticket-Wizard-BDA\src\main\java\DTOs\UsuarioDTO.java
 C:\Users\jesus\Desktop\BDA\Proyecto-Ticket-Wizard-BDA\src\main\java\dao\UsuariosDAO.java
 C:\Users\jesus\Desktop\BDA\Proyecto-Ticket-Wizard-BDA\src\main\java\control\ControlGUI.java
 C:\Users\jesus\Desktop\BDA\Proyecto-Ticket-Wizard-BDA\src\main\java\interfaces\IConexionDB.java
-C:\Users\jesus\Desktop\BDA\Proyecto-Ticket-Wizard-BDA\src\main\java\com\mycompany\proyecto_ticketwizard\Proyecto_ticketwizard.java
 C:\Users\jesus\Desktop\BDA\Proyecto-Ticket-Wizard-BDA\src\main\java\GUIs\Login.java
 C:\Users\jesus\Desktop\BDA\Proyecto-Ticket-Wizard-BDA\src\main\java\GUIs\Menu.java
+C:\Users\jesus\Desktop\BDA\Proyecto-Ticket-Wizard-BDA\src\main\java\BOs\UsuarioBO.java
+C:\Users\jesus\Desktop\BDA\Proyecto-Ticket-Wizard-BDA\src\main\java\GUIs\registrarUsuario.java
+C:\Users\jesus\Desktop\BDA\Proyecto-Ticket-Wizard-BDA\src\main\java\com\mycompany\proyecto_ticketwizard\Proyecto_ticketwizard.java
 C:\Users\jesus\Desktop\BDA\Proyecto-Ticket-Wizard-BDA\src\main\java\objetos\Usuario.java

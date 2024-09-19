@@ -4,6 +4,8 @@
  */
 package control;
 
+import BOs.UsuarioBO;
+import DTOs.UsuarioDTO;
 import com.toedter.calendar.JDateChooser;
 import dao.UsuariosDAO;
 import interfaces.IConexionDB;
@@ -24,7 +26,7 @@ import objetos.Usuario;
 public class ControlGUI {
     private IUsuariosDAO usuariosDAO;
     
-    private Usuario usuario;
+    private UsuarioBO usuario;
     
     public ControlGUI() {
         
@@ -33,15 +35,15 @@ public class ControlGUI {
     
     public boolean iniciarSesion(String correo, String contrasena) {
         if(usuariosDAO.consultarUsuario(correo, contrasena) != null) {
-            this.usuario = usuariosDAO.consultarUsuario(correo, contrasena);
+            //this.usuario = usuariosDAO.consultarUsuario(correo, contrasena);
             return true;
         } else return false;
     }
     
-    public boolean registrarUsuario(Usuario usuario) {
-        Usuario usuarioTemp;
+    public boolean registrarUsuario(UsuarioDTO usuario) {
+        UsuarioBO usuarioTemp;
         
-        usuarioTemp = new Usuario(usuario.getCorreo(), usuario.getContrasena(), usuario.getNombre_completo(), usuario.getFecha_nacimiento(), usuario.getDomicilio());
+        usuarioTemp = new UsuarioBO(usuario.getCorreo(), usuario.getContrasena(), usuario.getNombre_completo(), usuario.getFecha_nacimiento(), usuario.getDomicilio());
         this.usuario = usuarioTemp;
         return usuariosDAO.registrarUsuario(usuarioTemp);
     }
