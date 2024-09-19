@@ -3,6 +3,7 @@
  */
 
 package com.mycompany.proyecto_ticketwizard;
+import GUIs.Login;
 import dao.UsuariosDAO;
 import interfaces.IUsuariosDAO;
 import java.sql.Date;
@@ -20,8 +21,11 @@ public class Proyecto_ticketwizard {
 //        Date fechaNacimiento = Date.valueOf(fechaTexto);
 //
 //        
-//        Usuario usuario = new Usuario("correo@ejemplo.com", "12345", "Juan Pérez", fechaNacimiento, "Calle Falsa 123");
+        Login login = new Login();
+        login.setVisible(true);
+      
 //        
 //        usuariosDAO.RegistrarUsuario(usuario);
+        
     }
 }

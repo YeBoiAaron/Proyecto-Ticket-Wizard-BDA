@@ -5,6 +5,7 @@
 package GUIs;
 
 import control.ControlGUI;
+import objetos.Usuario;
 
 /**
  *
@@ -17,6 +18,7 @@ public class registrarUsuario extends javax.swing.JFrame {
      */
     public registrarUsuario() {
         initComponents();
+        
     }
 
     /**
@@ -167,7 +169,19 @@ public class registrarUsuario extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         ControlGUI cg = new ControlGUI();
-        cg.registrarUsuario(this);
+        Usuario usuario = new Usuario();
+        usuario.setCorreo(tfCorreo.getText());
+        usuario.setContrasena(tfContra.getText());
+        usuario.setNombre_completo(tfNombreCompleto.getText());
+        usuario.setFecha_nacimiento(dcFechaNac.getDate());
+        usuario.setDomicilio(tfDomicilio.getText());
+        
+        if (cg.registrarUsuario(usuario)) {
+            this.dispose();
+            System.out.println("usuario registrado");
+            
+        }
+      
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

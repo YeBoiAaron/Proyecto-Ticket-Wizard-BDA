@@ -1,11 +1,17 @@
+GUIs\Login$3.class
+GUIs\Menu.class
 GUIs\registrarUsuario$2.class
 GUIs\registrarUsuario$1.class
+GUIs\Login$2.class
 dao\UsuariosDAO.class
 GUIs\registrarUsuario.class
+GUIs\Menu$1.class
 interfaces\IUsuariosDAO.class
 objetos\Conexion.class
 GUIs\Login$1.class
 interfaces\IConexionDB.class
+GUIs\registrarUsuario$5.class
+GUIs\registrarUsuario$4.class
 objetos\Usuario.class
 dao\Conexion.class
 control\ControlGUI.class

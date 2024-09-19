@@ -21,15 +21,15 @@ public class UsuariosDAO implements IUsuariosDAO {
 
     private IConexionDB conexion;
     
-    public UsuariosDAO(IConexionDB conexion) {
-        this.conexion = conexion;
+    public UsuariosDAO() {
+        this.conexion = new Conexion();
     }
     
     @Override
     public boolean registrarUsuario(Usuario usuario) {
         try {
             Connection connection = conexion.crearConexion();
-            String insertar = "INSERT INTO usuarios (correo_electronico,contrasena,nombre_completo,fecha_nacimiento,edad,domicilio,saldo) VALUES (?,?,?,?,?,?,?)";
+            String insertar = "INSERT INTO usuarios (correo_electronico,contraseña,nombre_completo,fecha_nacimiento,edad,domicilio,saldo) VALUES (?,?,?,?,?,?,?)";
             PreparedStatement statement = connection.prepareStatement(insertar, Statement.RETURN_GENERATED_KEYS);
             
             // Establecer los valores de los atributos del usuario en el PreparedStatement
@@ -61,7 +61,7 @@ public class UsuariosDAO implements IUsuariosDAO {
     public boolean actualizarUsuario(Usuario usuario) {
         try {
             Connection connection = conexion.crearConexion();
-            String actualizar = "UPDATE usuarios SET correo_electronico = ?,contrasena = ?,nombre_completo = ?,fecha_nacimiento = ?,edad = ?,domicilio = ?,saldo = ? WHERE id_usuario = ?";
+            String actualizar = "UPDATE usuarios SET correo_electronico = ?,contraseña = ?,nombre_completo = ?,fecha_nacimiento = ?,edad = ?,domicilio = ?,saldo = ? WHERE id_usuario = ?";
             PreparedStatement statement = connection.prepareStatement(actualizar, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, usuario.getCorreo());
             statement.setString(2, usuario.getContrasena());
@@ -95,7 +95,7 @@ public class UsuariosDAO implements IUsuariosDAO {
                 Usuario u = new Usuario();
                 u.setId_usuario(resultado.getInt("id_usuario"));
                 u.setCorreo(resultado.getString("correo_electronico"));
-                u.setContrasena(resultado.getString("contrasena"));
+                u.setContrasena(resultado.getString("contraseña"));
                 u.setFecha_nacimiento(resultado.getDate("fecha_nacimiento"));
                 u.setEdad(resultado.getInt("edad"));
                 u.setDomicilio(resultado.getString("domicilio"));
@@ -115,7 +115,7 @@ public class UsuariosDAO implements IUsuariosDAO {
     public Usuario consultarUsuario(String correo, String contrasena) {
         try {
             Connection connection = conexion.crearConexion();
-            String buscarProducto = "SELECT * FROM usuarios WHERE correo_electronico = ? AND contrasena";
+            String buscarProducto = "SELECT * FROM usuarios WHERE correo_electronico = ? AND contraseña";
             PreparedStatement statement = connection.prepareStatement(buscarProducto, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, correo);
             statement.setString(2, contrasena);
@@ -126,7 +126,7 @@ public class UsuariosDAO implements IUsuariosDAO {
                 Usuario u = new Usuario();
                 u.setId_usuario(resultado.getInt("id_usuario"));
                 u.setCorreo(resultado.getString("correo_electronico"));
-                u.setContrasena(resultado.getString("contrasena"));
+                u.setContrasena(resultado.getString("contraseña"));
                 u.setFecha_nacimiento(resultado.getDate("fecha_nacimiento"));
                 u.setEdad(resultado.getInt("edad"));
                 u.setDomicilio(resultado.getString("domicilio"));

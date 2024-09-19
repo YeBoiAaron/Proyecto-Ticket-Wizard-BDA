@@ -14,14 +14,15 @@ import java.sql.SQLException;
  */
 public class Conexion implements IConexionDB {
 
-    private String cadena_conexion = "jdbc:mysql://localhost:3306/";
+    private String cadena_conexion = "jdbc:mysql://127.0.0.1:3306/reventa_boletos?";
     private String usuario = "root";
-    private String contra = "admin";
+    private String contra = "imperial";
     
     @Override
     public Connection crearConexion() {
         try {
             Connection c = DriverManager.getConnection(cadena_conexion, usuario, contra);
+            
             return c;
         } catch(SQLException e) {
             System.out.println("Hubo un error de conexion");
