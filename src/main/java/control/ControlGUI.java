@@ -6,18 +6,8 @@ package control;
 
 import BOs.UsuarioBO;
 import DTOs.UsuarioDTO;
-import com.toedter.calendar.JDateChooser;
 import dao.UsuariosDAO;
-import interfaces.IConexionDB;
 import interfaces.IUsuariosDAO;
-import java.awt.Component;
-import java.util.Date;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import objetos.Conexion;
-import objetos.Usuario;
 
 /**
  *
