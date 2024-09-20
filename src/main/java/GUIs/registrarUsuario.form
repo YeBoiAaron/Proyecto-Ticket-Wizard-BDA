@@ -27,17 +27,15 @@
               <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="tfPassword" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="dcFechaNac" alignment="0" max="32767" attributes="0"/>
-                      <Component id="tfCorreo" alignment="0" max="32767" attributes="0"/>
-                      <Component id="tfNombreCompleto" alignment="0" max="32767" attributes="0"/>
-                      <Component id="tfDomicilio" alignment="0" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="dcFechaNac" alignment="0" max="32767" attributes="0"/>
+                  <Component id="tfCorreo" alignment="0" max="32767" attributes="0"/>
+                  <Component id="tfNombreCompleto" alignment="0" max="32767" attributes="0"/>
+                  <Component id="tfDomicilio" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
               <Component id="btnRegistrar" min="-2" max="-2" attributes="0"/>
@@ -182,9 +180,6 @@
       </Events>
     </Component>
     <Component class="javax.swing.JPasswordField" name="tfPassword">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jPasswordField1"/>
-      </Properties>
     </Component>
   </SubComponents>
 </Form>
