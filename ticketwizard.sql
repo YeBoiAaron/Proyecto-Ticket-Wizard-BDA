@@ -39,15 +39,13 @@ CREATE TABLE IF NOT EXISTS boletos (
 CREATE TABLE IF NOT EXISTS transacciones (
     transaccion_id INT AUTO_INCREMENT PRIMARY KEY,
     numero_transaccion VARCHAR(50) NOT NULL UNIQUE,
-    comprador_id INT,
-    vendedor_id INT,
+    usuario_id INT,
     boleto_id INT,
     fecha_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    fecha_limite DATE,
     monto DECIMAL(10, 2) NOT NULL,
-    tipo_transaccion ENUM('compra', 'reventa') NOT NULL,
-    comision DECIMAL(10, 2),
-    FOREIGN KEY (comprador_id) REFERENCES usuarios(usuario_id),
-    FOREIGN KEY (vendedor_id) REFERENCES usuarios(usuario_id),
+    tipo_transaccion ENUM('compra', 'venta') NOT NULL,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id_usuario),
     FOREIGN KEY (boleto_id) REFERENCES boletos(boleto_id)
 );
 
@@ -63,42 +61,43 @@ CREATE TABLE IF NOT EXISTS reservas_boletos (
     usuario_id INT,
     boleto_id INT,
     fecha_reserva TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    estado ENUM('reservado', 'liberado') DEFAULT 'reservado',
-    fecha_expiracion TIMESTAMP AS (DATE_ADD(fecha_reserva, INTERVAL 10 MINUTE)),
+    fecha_expiracion TIMESTAMP,
     FOREIGN KEY (usuario_id) REFERENCES usuarios(usuario_id),
     FOREIGN KEY (boleto_id) REFERENCES boletos(boleto_id)
 );
 
 DELIMITER //
 CREATE PROCEDURE transaccion(
-    IN comprador_id INT, 
-    IN vendedor_id INT, 
+	IN id_transaccion INT,
+    IN id_usuario INT,
     IN id_boleto INT,
+    IN fecha_lim DATE,
     IN monto DECIMAL(10, 2), 
-    IN tipo_transaccion ENUM('compra', 'reventa')
+    IN tipo_transaccion ENUM('compra', 'venta')
 )
 BEGIN
     DECLARE comision DECIMAL(10, 2);
     DECLARE saldo_comprador DECIMAL(10, 2);
-    SELECT saldo 
-    INTO saldo_comprador 
-    FROM usuarios 
-    WHERE id_usuario = comprador_id;
 	
-    IF tipo_transaccion = 'compra' THEN
+    IF tipo_transaccion = 'compra' AND TIMESTAMPDIFF(MINUTE, NOW(), fecha_lim) > 0 THEN
+		SELECT saldo 
+		INTO saldo_comprador 
+		FROM usuarios 
+		WHERE id_usuario = id_usuario;
         START TRANSACTION;
-		IF saldo >= monto THEN
+		IF saldo_comprador >= monto THEN
 			UPDATE usuarios
 			SET saldo = saldo - monto
-			WHERE usuario_id = comprador_id;
+			WHERE id_usuario = id_usuario;
 
-			SET comision = monto * 0.03;
-			UPDATE usuarios
-			SET saldo = saldo + (monto - comision)
-			WHERE usuario_id = vendedor_id;
-        
+			SET comision = ROUND(monto * 0.03, 2);
+            UPDATE usuarios
+            JOIN boletos ON usuarios.id_usuario = boletos.usuario_id
+            SET saldo = saldo + (monto - comision)
+            WHERE boletos.boleto_id = id_boleto;
+            
 			UPDATE boletos
-			SET usuario_id = comprador_id
+			SET usuario_id = id_usuario
 			WHERE boleto_id = id_boleto;
         
 			UPDATE boletos
@@ -110,11 +109,19 @@ BEGIN
 			WHERE boleto_id = id_boleto;
 
 			COMMIT;
-		ELSEIF saldo < monto THEN
-			INSERT INTO reservas_boletos (usuario_id, boleto_id) 
-            VALUES (comprador_id, id_boleto);
+		ELSEIF saldo_comprador < monto THEN
+			IF NOT EXISTS (
+				SELECT 1 
+				FROM reservas_boletos 
+				WHERE usuario_id = id_usuario 
+				AND boleto_id = id_boleto 
+				AND estado = 'reservado'
+			) THEN
+				INSERT INTO reservas_boletos (usuario_id, boleto_id) 
+				VALUES (usuario_id, id_boleto);
+			END IF;
         END IF;
-	ELSEIF tipo_transaccion = 'reventa' THEN
+	ELSEIF tipo_transaccion = 'venta' THEN
 		START TRANSACTION;
         
         UPDATE boletos
@@ -144,28 +151,33 @@ CREATE TRIGGER realizar_transaccion
 AFTER INSERT ON transacciones
 FOR EACH ROW
 BEGIN
-    CALL transaccion(NEW.comprador_id, NEW.vendedor_id, NEW.boleto_id, NEW.monto, NEW.tipo_transaccion);
+    CALL transaccion(NEW.transaccion_id, NEW.usuario_id, NEW.boleto_id, NEW.fecha_limite, NEW.monto, NEW.tipo_transaccion);
 END;
 //
 DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER iniciar_reserva
+AFTER INSERT ON reservas_boletos
+FOR EACH ROW
+BEGIN
+	UPDATE reservas_boletos
+    SET fecha_expiracion =(DATE_ADD(NEW.fecha_reserva, INTERVAL 10 MINUTE))
+    WHERE reserva_id = NEW.reserva_id;
+END;
+//
+DELIMITER;
 
 DELIMITER //
 CREATE EVENT IF NOT EXISTS actualizar_reserva
 ON SCHEDULE EVERY 1 MINUTE
 DO
 BEGIN
-
 	UPDATE boletos b
     JOIN reservas_boletos rb ON b.boleto_id = rb.boleto_id
     SET b.estado = 'disponible'
     WHERE b.estado = 'reservado'
 	AND TIMESTAMPDIFF(MINUTE, rb.fecha_reserva, NOW()) >= 10;
-    
-    UPDATE reservas_boletos rb
-    JOIN boletos b ON rb.boleto_id = b.boleto_id
-    SET rb.estado = 'liberado'
-    WHERE rb.estado = 'reservado'
-    AND TIMESTAMPDIFF(MINUTE, rb.fecha_reserva, NOW()) >= 10;
 END;
 //
 DELIMITER ;
