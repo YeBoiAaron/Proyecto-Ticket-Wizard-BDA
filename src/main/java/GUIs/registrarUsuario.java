@@ -169,12 +169,14 @@ public class registrarUsuario extends javax.swing.JFrame {
         ControlGUI cg = new ControlGUI();
         UsuarioDTO usuariodto = new UsuarioDTO();
         usuariodto.setCorreo(tfCorreo.getText());
-        usuariodto.setContrasena(tfPassword.getSelectedText());
+        usuariodto.setContrasena(String.valueOf(tfPassword.getPassword()));
         usuariodto.setNombre_completo(tfNombreCompleto.getText());
         usuariodto.setFecha_nacimiento(dcFechaNac.getDate());
         usuariodto.setDomicilio(tfDomicilio.getText());
         
         if (cg.registrarUsuario(usuariodto)) {
+            Menu menu = new Menu();
+            menu.setVisible(true);
             this.dispose();
             System.out.println("usuario registrado");
             

@@ -16,7 +16,7 @@ public class Conexion implements IConexionDB {
 
     private String cadena_conexion = "jdbc:mysql://127.0.0.1:3306/reventa_boletos?";
     private String usuario = "root";
-    private String contra = "imperial";
+    private String contra = "admin";
     
     @Override
     public Connection crearConexion() {
