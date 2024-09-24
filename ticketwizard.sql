@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
     id_usuario INT AUTO_INCREMENT PRIMARY KEY,
     nombre_completo VARCHAR(100) NOT NULL,
     correo_electronico VARCHAR(100) NOT NULL UNIQUE,
-    contraseña VARCHAR(255) NOT NULL,
+    contrasena VARCHAR(255) NOT NULL,
     domicilio VARCHAR(200),
     fecha_nacimiento DATE,
     edad INT,
@@ -33,18 +33,18 @@ CREATE TABLE IF NOT EXISTS boletos (
     estado ENUM('vendido', 'disponible', 'reservado') DEFAULT 'vendido',
     es_reventa BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (evento_id) REFERENCES eventos(evento_id),
-    FOREIGN KEY (usuario_id) REFERENCES usuarios(usuario_id)
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id_usuario)
 );
 
 CREATE TABLE IF NOT EXISTS transacciones (
     transaccion_id INT AUTO_INCREMENT PRIMARY KEY,
     numero_transaccion VARCHAR(50) NOT NULL UNIQUE,
-    usuario_id INT,
+    comprador_id INT,
+    vendedor_id INT,
     boleto_id INT,
     fecha_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fecha_limite DATE,
     monto DECIMAL(10, 2) NOT NULL,
-    tipo_transaccion ENUM('compra', 'venta') NOT NULL,
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id_usuario),
     FOREIGN KEY (boleto_id) REFERENCES boletos(boleto_id)
 );
@@ -62,28 +62,28 @@ CREATE TABLE IF NOT EXISTS reservas_boletos (
     boleto_id INT,
     fecha_reserva TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     fecha_expiracion TIMESTAMP,
-    FOREIGN KEY (usuario_id) REFERENCES usuarios(usuario_id),
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id_usuario),
     FOREIGN KEY (boleto_id) REFERENCES boletos(boleto_id)
 );
 
 DELIMITER //
 CREATE PROCEDURE transaccion(
 	IN id_transaccion INT,
-    IN id_usuario INT,
+    IN id_comprador INT,
+    IN id_vendedor INT,
     IN id_boleto INT,
     IN fecha_lim DATE,
-    IN monto DECIMAL(10, 2), 
-    IN tipo_transaccion ENUM('compra', 'venta')
+    IN monto DECIMAL(10, 2)
 )
 BEGIN
     DECLARE comision DECIMAL(10, 2);
     DECLARE saldo_comprador DECIMAL(10, 2);
 	
-    IF tipo_transaccion = 'compra' AND TIMESTAMPDIFF(MINUTE, NOW(), fecha_lim) > 0 THEN
+    IF TIMESTAMPDIFF(MINUTE, NOW(), fecha_lim) > 0 THEN
 		SELECT saldo 
 		INTO saldo_comprador 
 		FROM usuarios 
-		WHERE id_usuario = id_usuario;
+		WHERE id_usuario = id_comprador;
         START TRANSACTION;
 		IF saldo_comprador >= monto THEN
 			UPDATE usuarios
@@ -121,14 +121,6 @@ BEGIN
 				VALUES (usuario_id, id_boleto);
 			END IF;
         END IF;
-	ELSEIF tipo_transaccion = 'venta' THEN
-		START TRANSACTION;
-        
-        UPDATE boletos
-        SET estado = 'disponible'
-        WHERE boleto_id = id_boleto;
-        
-        COMMIT;
     END IF;
 END;
 //
@@ -151,7 +143,7 @@ CREATE TRIGGER realizar_transaccion
 AFTER INSERT ON transacciones
 FOR EACH ROW
 BEGIN
-    CALL transaccion(NEW.transaccion_id, NEW.usuario_id, NEW.boleto_id, NEW.fecha_limite, NEW.monto, NEW.tipo_transaccion);
+    CALL transaccion(NEW.transaccion_id, NEW.comprador_id, NEW.vendedor_id, NEW.boleto_id, NEW.fecha_limite, NEW.monto, NEW.tipo_transaccion);
 END;
 //
 DELIMITER ;
