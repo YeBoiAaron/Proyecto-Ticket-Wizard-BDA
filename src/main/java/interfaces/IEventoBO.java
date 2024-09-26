@@ -5,6 +5,7 @@
 package interfaces;
 
 import DTOs.EventoDTO;
+import java.util.List;
 
 /**
  *
@@ -17,4 +18,6 @@ public interface IEventoBO {
     public void actualizarEvento(EventoDTO evento);
     
     public EventoDTO consultarEvento(int idEvento);
+    
+    public List<EventoDTO> consultarEventos();
 }

@@ -4,20 +4,44 @@
  */
 package GUIs;
 
+import control.ControlEventoGUI;
 import control.ControlGUI;
+import dao.Conexion;
+import dao.EventosDAO;
+import BOs.EventoBO;
+import interfaces.IConexionDB;
+import interfaces.IEventoBO;
+import interfaces.IEventosDAO;
+import java.awt.BorderLayout;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 /**
  *
  * @author Aaron
  */
 public class VistaEventos extends javax.swing.JFrame {
-
     private ControlGUI control;
+    private ControlEventoGUI controlEventos;
+    private IConexionDB conexion = new Conexion();
+    private IEventosDAO eventosDAO = new EventosDAO(conexion);
+    private IEventoBO eventoBO = new EventoBO(eventosDAO);
     /**
      * Creates new form VistaEventos
      */
     public VistaEventos() {
         this.control = new ControlGUI();
+        this.controlEventos = new ControlEventoGUI(conexion);
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -38,7 +62,7 @@ public class VistaEventos extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        panelEventos = new javax.swing.JScrollPane();
+        panelEventos = new JScrollPane(encapsularEventos());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(883, 681));
@@ -189,6 +213,76 @@ public class VistaEventos extends javax.swing.JFrame {
                 new VistaEventos().setVisible(true);
             }
         });
+    }
+    /**Método para crear un componente compuesto con nombre del evento, descripción, imagen relacionada al evento y botón para 
+     * 
+     * @param nombre Nombre del evento
+     * @param descripcion Breve descripción del evento
+     * @param imagePath Icono del evento
+     * @return Panel que encapsula los elementos que representan a un evento
+     */
+    public JPanel crearComponenteCompuesto(String nombre, String descripcion, String imagePath) {
+        // Crear panel para el componente compuesto
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Añadir márgenes
+        
+        // Crear panel para los elementos de la derecha (nombre, descripción y botón)
+        JPanel rightPanel = new JPanel();
+        rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
+        
+        // Crear etiqueta para el nombre
+        JLabel nameLabel = new JLabel(nombre);
+        nameLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        
+        // Crear etiqueta para la descripción
+        JLabel descriptionLabel = new JLabel("<html><p style='width:200px;'>" + descripcion + "</p></html>"); // Para que el texto se ajuste en varias líneas
+        
+        // Crear botón
+        JButton button = new JButton("Ver boletos en reventa");
+        
+        // Añadir un ActionListener a cada botón
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Acción que se ejecuta cuando el botón es presionado
+                //TODO añadir una ventana con los boletos del evento
+            }
+        });
+        
+        // Añadir nombre, descripción y botón al panel derecho
+        rightPanel.add(nameLabel);
+        rightPanel.add(descriptionLabel);
+        rightPanel.add(button);
+        
+        // Cargar imagen (por simplicidad, usa un icono en blanco si la imagen no está disponible)
+        ImageIcon imageIcon = new ImageIcon(imagePath); // Usa la ruta de la imagen adecuada
+        JLabel imageLabel = new JLabel();
+        if (imageIcon.getIconWidth() > 0) {
+            imageLabel.setIcon(imageIcon);
+        } else {
+            // Si la imagen no está disponible, usar un espacio en blanco o una imagen por defecto
+            imageLabel.setIcon(new ImageIcon(new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB)));
+        }
+        
+        // Añadir los paneles izquierdo y derecho (imagen) al componente principal
+        panel.add(rightPanel, BorderLayout.CENTER); // Panel con nombre, descripción y botón a la derecha
+        panel.add(imageLabel, BorderLayout.WEST);  // Imagen a la izquierda
+        
+        return panel;
+    }
+    
+    /**
+     * Encapsula cada uno de los paneles generados por evento en un solo JPanel
+     * @return JPanel con todos los eventos encapsulados
+     */
+    public JPanel encapsularEventos() {
+        JPanel panelPrincipal = new JPanel();
+        panelPrincipal.setLayout(new BoxLayout(panelPrincipal, BoxLayout.Y_AXIS));
+        for (int i = 0; i < controlEventos.cantidadTotalEventos(); i++) {
+            panelPrincipal.add(crearComponenteCompuesto(eventoBO.consultarEventos().get(i).getNombre(), controlEventos.descripcionEvento(i), "/main/java/imgs/evento1.png"));
+        }
+        return panelPrincipal;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

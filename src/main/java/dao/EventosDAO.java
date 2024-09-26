@@ -13,7 +13,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import objetos.Evento;
 
 /**
@@ -23,8 +25,8 @@ import objetos.Evento;
 public class EventosDAO implements IEventosDAO{
     private IConexionDB conexion;
     
-    public EventosDAO() {
-        this.conexion = new Conexion();
+    public EventosDAO(IConexionDB conexion) {
+        this.conexion = conexion;
     }
 
     @Override
@@ -105,6 +107,35 @@ public class EventosDAO implements IEventosDAO{
                 return null;
             }
         }catch(SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public List<Evento> consultarEventos() {
+        try {
+            List<Evento> consulta = new ArrayList<Evento>();
+            Connection connection = conexion.crearConexion();
+            String buscarEventos = "SELECT * FROM eventos";
+            PreparedStatement statement = connection.prepareStatement(buscarEventos);
+            
+            ResultSet resultado = statement.executeQuery();
+            
+            while(resultado.next()) {
+                Evento evento = new Evento();
+                evento.setId_evento(resultado.getInt("evento_id"));
+                evento.setNombre(resultado.getString("nombre"));
+                evento.setFecha(resultado.getDate("fecha"));
+                evento.setVenue(resultado.getString("venue"));
+                evento.setCiudad(resultado.getString("ciudad"));
+                evento.setEstado(resultado.getString("estado"));
+                evento.setDescripcion(resultado.getString("descripcion"));
+                consulta.add(evento);
+            }
+            
+            return consulta;
+        }catch(SQLException e){
             e.printStackTrace();
             return null;
         }

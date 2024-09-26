@@ -5,6 +5,7 @@
 package interfaces;
 
 import DTOs.EventoDTO;
+import java.util.List;
 import objetos.Evento;
 
 /**
@@ -18,4 +19,5 @@ public interface IEventosDAO {
     
     public Evento consultarEvento(int idEvento);
     
+    public List<Evento> consultarEventos();
 }

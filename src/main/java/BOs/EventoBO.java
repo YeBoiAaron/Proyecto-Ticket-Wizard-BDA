@@ -7,6 +7,9 @@ package BOs;
 import DTOs.EventoDTO;
 import interfaces.IEventoBO;
 import interfaces.IEventosDAO;
+import java.util.ArrayList;
+import java.util.List;
+import objetos.Evento;
 
 /**
  *
@@ -27,13 +30,29 @@ public class EventoBO implements IEventoBO{
 
     @Override
     public void actualizarEvento(EventoDTO evento) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        eventosDAO.actualizarEvento(evento);
     }
 
     @Override
     public EventoDTO consultarEvento(int idEvento) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Evento evento = eventosDAO.consultarEvento(idEvento);
+        return convertirEventoDTO(evento);
+    }
+
+    @Override
+    public List<EventoDTO> consultarEventos() {
+        List<EventoDTO> consulta = new ArrayList<EventoDTO>();
+        if(!eventosDAO.consultarEventos().isEmpty()) {
+            for (int i = 0; i < eventosDAO.consultarEventos().size(); i++) {
+                consulta.add(convertirEventoDTO(eventosDAO.consultarEventos().get(i)));
+            }
+            return consulta;
+        }
+        return null;
     }
     
-    
+    public EventoDTO convertirEventoDTO(Evento evento) {
+        EventoDTO eventoDTO = new EventoDTO(evento.getId_evento(), evento.getNombre(), evento.getFecha(), evento.getVenue(), evento.getCiudad(), evento.getEstado(), evento.getDescripcion());
+        return eventoDTO;
+    }
 }
