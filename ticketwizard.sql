@@ -79,7 +79,7 @@ BEGIN
     DECLARE comision DECIMAL(10, 2);
     DECLARE saldo_comprador DECIMAL(10, 2);
 	
-    IF TIMESTAMPDIFF(MINUTE, NOW(), fecha_lim) > 0 THEN
+    IF TIMESTAMPDIFF(MINUTE, NOW(), fecha_lim) >= 0 THEN
 		SELECT saldo 
 		INTO saldo_comprador 
 		FROM usuarios 
@@ -143,7 +143,7 @@ CREATE TRIGGER realizar_transaccion
 AFTER INSERT ON transacciones
 FOR EACH ROW
 BEGIN
-    CALL transaccion(NEW.transaccion_id, NEW.comprador_id, NEW.vendedor_id, NEW.boleto_id, NEW.fecha_limite, NEW.monto, NEW.tipo_transaccion);
+    CALL transaccion(NEW.transaccion_id, NEW.comprador_id, NEW.vendedor_id, NEW.boleto_id, NEW.fecha_limite, NEW.monto);
 END;
 //
 DELIMITER ;

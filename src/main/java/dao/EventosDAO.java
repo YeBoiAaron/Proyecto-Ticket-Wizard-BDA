@@ -5,12 +5,15 @@
 package dao;
 
 import BOs.EventoBO;
+import DTOs.EventoDTO;
 import interfaces.IConexionDB;
 import interfaces.IEventosDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 import objetos.Evento;
 
 /**
@@ -25,7 +28,7 @@ public class EventosDAO implements IEventosDAO{
     }
 
     @Override
-    public boolean agregarEvento(EventoBO evento) {
+    public Evento agregarEvento(EventoDTO evento) {
         try {
             Connection connection = conexion.crearConexion();
             String insertar = "INSERT INTO eventos (nombre,fecha,venue,ciudad,estado,descripcion) VALUES (?,?,?,?,?,?)";
@@ -43,21 +46,68 @@ public class EventosDAO implements IEventosDAO{
             statement.setString(6, evento.getDescripcion());
             statement.executeUpdate();
             
-            return true;
+            return this.consultarEvento(evento.getId_evento());
         } catch(SQLException e) {
             e.printStackTrace();
-            return false;
+            return null;
         }
     }
 
     @Override
-    public boolean actualizarEvento(Evento evento) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Evento actualizarEvento(EventoDTO evento) {
+        try {
+            Connection connection = conexion.crearConexion();
+            String actualizar = "UPDATE eventos SET nombre = ?,fecha = ?,venue = ?,ciudad = ?,estado = ?,descripcion = ? WHERE evento_id = ?";
+            PreparedStatement statement = connection.prepareStatement(actualizar, Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, evento.getNombre());
+            
+            java.util.Date utilDate = evento.getFecha();
+            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+            
+            statement.setDate(2, sqlDate);
+            statement.setString(3, evento.getVenue());
+            statement.setString(4, evento.getCiudad());
+            statement.setString(5, evento.getEstado());
+            statement.setString(6, evento.getDescripcion());
+            statement.setInt(7, evento.getId_evento());
+            
+            statement.executeUpdate();
+            
+            return this.consultarEvento(evento.getId_evento());
+        } catch(SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public Evento consultarEvento(int idEvento) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            Connection connection = conexion.crearConexion();
+            String buscarEvento = "SELECT * FROM eventos WHERE evento_id = ?";
+            PreparedStatement statement = connection.prepareStatement(buscarEvento, Statement.RETURN_GENERATED_KEYS);
+            statement.setInt(1, idEvento);
+            
+            ResultSet resultado = statement.executeQuery();
+            
+            if(resultado.next()) {
+                Evento evento = new Evento();
+                evento.setId_evento(resultado.getInt("evento_id"));
+                evento.setNombre(resultado.getString("nombre"));
+                evento.setFecha(resultado.getDate("fecha"));
+                evento.setVenue(resultado.getString("venue"));
+                evento.setCiudad(resultado.getString("ciudad"));
+                evento.setEstado(resultado.getString("estado"));
+                evento.setDescripcion(resultado.getString("descripcion"));
+                
+                return evento;
+            }else {
+                return null;
+            }
+        }catch(SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
     
 }

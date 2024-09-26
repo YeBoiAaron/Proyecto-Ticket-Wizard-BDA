@@ -6,6 +6,7 @@ package GUIs;
 
 import DTOs.UsuarioDTO;
 import control.ControlGUI;
+import control.ControlInicioGUI;
 import objetos.Usuario;
 
 /**
@@ -14,12 +15,15 @@ import objetos.Usuario;
  */
 public class registrarUsuario extends javax.swing.JFrame {
 
+    private ControlGUI control;
+    private ControlInicioGUI controlInicio;
     /**
      * Creates new form registrarUsuario
      */
     public registrarUsuario() {
         initComponents();
-        
+        control = new ControlGUI();
+        controlInicio = new ControlInicioGUI();
     }
 
     /**
@@ -166,7 +170,6 @@ public class registrarUsuario extends javax.swing.JFrame {
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         // TODO add your handling code here:
-        ControlGUI cg = new ControlGUI();
         UsuarioDTO usuariodto = new UsuarioDTO();
         usuariodto.setCorreo(tfCorreo.getText());
         usuariodto.setContrasena(String.valueOf(tfPassword.getPassword()));
@@ -174,7 +177,7 @@ public class registrarUsuario extends javax.swing.JFrame {
         usuariodto.setFecha_nacimiento(dcFechaNac.getDate());
         usuariodto.setDomicilio(tfDomicilio.getText());
         
-        if (cg.registrarUsuario(usuariodto)) {
+        if (controlInicio.registrarUsuario(usuariodto)) {
             Menu menu = new Menu();
             menu.setVisible(true);
             this.dispose();

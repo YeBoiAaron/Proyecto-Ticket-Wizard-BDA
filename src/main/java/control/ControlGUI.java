@@ -6,35 +6,35 @@ package control;
 
 import BOs.UsuarioBO;
 import DTOs.UsuarioDTO;
+import GUIs.CuentaUsuario;
+import GUIs.VistaEventos;
 import dao.UsuariosDAO;
 import interfaces.IUsuariosDAO;
+import javax.swing.JFrame;
 
 /**
  *
  * @author Aaron
  */
 public class ControlGUI {
-    private IUsuariosDAO usuariosDAO;
-    
-    private UsuarioBO usuario;
     
     public ControlGUI() {
         
-        usuariosDAO = new UsuariosDAO();
     }
     
-    public boolean iniciarSesion(String correo, String contrasena) {
-        if(usuariosDAO.consultarUsuario(correo, contrasena) != null) {
-            //this.usuario = usuariosDAO.consultarUsuario(correo, contrasena);
-            return true;
-        } else return false;
-    }
-    
-    public boolean registrarUsuario(UsuarioDTO usuario) {
-        UsuarioBO usuarioTemp;
+    public void abrirVentanaBoletos(JFrame frame) {
         
-        usuarioTemp = new UsuarioBO(usuario.getCorreo(), usuario.getContrasena(), usuario.getNombre_completo(), usuario.getFecha_nacimiento(), usuario.getDomicilio());
-        this.usuario = usuarioTemp;
-        return usuariosDAO.registrarUsuario(usuarioTemp);
+    }
+    
+    public void abrirVentanaEventos(JFrame frame) {
+        VistaEventos eventos = new VistaEventos();
+        eventos.setVisible(true);
+        frame.dispose();
+    }
+    
+    public void abrirVentanaUsuario(JFrame frame) {
+        CuentaUsuario usuario = new CuentaUsuario();
+        usuario.setVisible(true);
+        frame.dispose();
     }
 }

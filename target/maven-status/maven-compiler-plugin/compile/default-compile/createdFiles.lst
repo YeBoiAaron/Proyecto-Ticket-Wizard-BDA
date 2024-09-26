@@ -1,4 +1,6 @@
+GUIs\VistaEventos$4.class
 BOs\EventoBO.class
+GUIs\Menu$3.class
 GUIs\registrarUsuario$2.class
 GUIs\CuentaUsuario.class
 GUIs\Login$2.class
@@ -8,17 +10,22 @@ GUIs\CuentaUsuario$2.class
 GUIs\Menu$1.class
 objetos\Boleto.class
 GUIs\EditarUsuario$1.class
+GUIs\VistaEventos$2.class
 GUIs\VistaEventos$1.class
 objetos\Transaccion.class
 objetos\Usuario.class
 control\ControlGUI.class
+GUIs\Menu$4.class
 com\mycompany\proyecto_ticketwizard\Proyecto_ticketwizard.class
 GUIs\registrarUsuario$3.class
 GUIs\Login.class
 GUIs\Login$3.class
+GUIs\CuentaUsuario$3.class
+GUIs\Menu$2.class
 objetos\Evento.class
 GUIs\Menu.class
 GUIs\registrarUsuario$1.class
+GUIs\VistaEventos$3.class
 dao\UsuariosDAO.class
 GUIs\EditarUsuario$1$1.class
 interfaces\IUsuariosDAO.class
@@ -37,4 +44,5 @@ dao\Conexion.class
 GUIs\AgregarSaldo$1.class
 interfaces\IEventosDAO.class
 GUIs\AgregarSaldo.class
+GUIs\CuentaUsuario$4.class
 GUIs\AgregarSaldo$1$1.class

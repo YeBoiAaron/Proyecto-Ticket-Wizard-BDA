@@ -5,17 +5,16 @@
 package interfaces;
 
 import DTOs.EventoDTO;
-import objetos.Evento;
 
 /**
  *
  * @author Aaron
  */
-public interface IEventosDAO {
-    public Evento agregarEvento(EventoDTO evento);
+public interface IEventoBO {
     
-    public Evento actualizarEvento(EventoDTO evento);
+    public void agregarEvento(EventoDTO evento);
     
-    public Evento consultarEvento(int idEvento);
+    public void actualizarEvento(EventoDTO evento);
     
+    public EventoDTO consultarEvento(int idEvento);
 }

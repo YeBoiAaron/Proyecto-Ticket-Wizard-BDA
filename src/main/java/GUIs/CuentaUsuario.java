@@ -56,8 +56,10 @@ public class CuentaUsuario extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.setPreferredSize(null);
 
         btnMisBoletos.setText("Mis boletos");
+        btnMisBoletos.setPreferredSize(null);
         btnMisBoletos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMisBoletosActionPerformed(evt);
@@ -65,8 +67,20 @@ public class CuentaUsuario extends javax.swing.JFrame {
         });
 
         btnEventos.setText("Eventos");
+        btnEventos.setPreferredSize(null);
+        btnEventos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEventosActionPerformed(evt);
+            }
+        });
 
         btnMiCuenta.setText("Mi cuenta");
+        btnMiCuenta.setPreferredSize(null);
+        btnMiCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMiCuentaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -249,6 +263,14 @@ public class CuentaUsuario extends javax.swing.JFrame {
     private void btnMisBoletosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMisBoletosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnMisBoletosActionPerformed
+
+    private void btnEventosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEventosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEventosActionPerformed
+
+    private void btnMiCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMiCuentaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnMiCuentaActionPerformed
 
     /**
      * @param args the command line arguments
