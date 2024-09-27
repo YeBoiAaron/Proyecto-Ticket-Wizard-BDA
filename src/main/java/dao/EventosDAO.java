@@ -46,7 +46,17 @@ public class EventosDAO implements IEventosDAO{
             statement.setString(4, evento.getCiudad());
             statement.setString(5, evento.getEstado());
             statement.setString(6, evento.getDescripcion());
-            statement.executeUpdate();
+            
+            int filasAfectadas = statement.executeUpdate();
+            if (filasAfectadas == 0) {
+                return null;
+            }
+
+            int idEvento = 0;
+            ResultSet resultado = statement.getGeneratedKeys();
+            if (resultado.next()) {
+                idEvento = (resultado.getInt(1));
+            }
             
             return this.consultarEvento(evento.getId_evento());
         } catch(SQLException e) {

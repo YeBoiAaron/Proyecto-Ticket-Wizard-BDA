@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS boletos (
     evento_id INT,
     usuario_id INT,
     numero_serie VARCHAR(8) NOT NULL UNIQUE,
+    precio_original DECIMAL(10,2),
     fila VARCHAR(10),
     asiento VARCHAR(10),
     numero_control VARCHAR (16),
@@ -45,7 +46,8 @@ CREATE TABLE IF NOT EXISTS transacciones (
     fecha_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fecha_limite DATE,
     monto DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (usuario_id) REFERENCES usuarios(id_usuario),
+    FOREIGN KEY (comprador_id) REFERENCES usuarios(id_usuario),
+    FOREIGN KEY (vendedor_id) REFERENCES usuarios(id_usuario),
     FOREIGN KEY (boleto_id) REFERENCES boletos(boleto_id)
 );
 
@@ -159,6 +161,16 @@ BEGIN
 END;
 //
 DELIMITER;
+
+DELIMITER //
+CREATE TRIGGER generar_numero_control
+BEFORE INSERT ON boletos
+FOR EACH ROW
+BEGIN
+	 SET NEW.numero_control = CONCAT(NEW.precio_original, '-', NEW.fila, '-', NEW.asiento);
+END;
+//
+DELIMITER ;
 
 DELIMITER //
 CREATE EVENT IF NOT EXISTS actualizar_reserva

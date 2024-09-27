@@ -13,14 +13,14 @@ import objetos.Usuario;
  *
  * @author jesus
  */
-public class registrarUsuario extends javax.swing.JFrame {
+public class RegistrarUsuario extends javax.swing.JFrame {
 
     private ControlGUI control;
     private ControlInicioGUI controlInicio;
     /**
      * Creates new form registrarUsuario
      */
-    public registrarUsuario() {
+    public RegistrarUsuario() {
         initComponents();
         control = new ControlGUI();
         controlInicio = new ControlInicioGUI();
@@ -177,7 +177,7 @@ public class registrarUsuario extends javax.swing.JFrame {
         usuariodto.setFecha_nacimiento(dcFechaNac.getDate());
         usuariodto.setDomicilio(tfDomicilio.getText());
         
-        if (controlInicio.registrarUsuario(usuariodto)) {
+        if (controlInicio.registrarUsuario(usuariodto) != null) {
             Menu menu = new Menu();
             menu.setVisible(true);
             this.dispose();
@@ -211,20 +211,21 @@ public class registrarUsuario extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(registrarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistrarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(registrarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistrarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(registrarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistrarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(registrarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistrarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new registrarUsuario().setVisible(true);
+                new RegistrarUsuario().setVisible(true);
             }
         });
     }

@@ -13,35 +13,25 @@ import java.util.Date;
 public class Transaccion {
     private int id_transaccion;
     private String numero_transaccion;
-    private Usuario usuario;
+    private int id_comprador;
+    private int id_vendedor;
     private Boleto boleto;
     private Date fecha_hora;
     private Date fecha_limite;
     private float monto;
-    private String tipo_transaccion;
 
     public Transaccion() {
     }
 
-    public Transaccion(int id_transaccion, String numero_transaccion, Usuario usuario, Boleto boleto, Date fecha_hora, float monto) {
+    public Transaccion(int id_transaccion, String numero_transaccion, int id_comprador, int id_vendedor, Boleto boleto, Date fecha_hora, Date fecha_limite, float monto) {
         this.id_transaccion = id_transaccion;
         this.numero_transaccion = numero_transaccion;
-        this.usuario = usuario;
-        this.boleto = boleto;
-        this.fecha_hora = fecha_hora;
-        this.monto = monto;
-        this.tipo_transaccion = "compra";
-    }
-
-    public Transaccion(int id_transaccion, String numero_transaccion, Usuario usuario, Boleto boleto, Date fecha_hora, Date fecha_limite, float monto) {
-        this.id_transaccion = id_transaccion;
-        this.numero_transaccion = numero_transaccion;
-        this.usuario = usuario;
+        this.id_comprador = id_comprador;
+        this.id_vendedor = id_vendedor;
         this.boleto = boleto;
         this.fecha_hora = fecha_hora;
         this.fecha_limite = fecha_limite;
         this.monto = monto;
-        this.tipo_transaccion = "venta";
     }
 
     public int getId_transaccion() {
@@ -60,12 +50,20 @@ public class Transaccion {
         this.numero_transaccion = numero_transaccion;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public int getId_comprador() {
+        return id_comprador;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setId_comprador(int id_comprador) {
+        this.id_comprador = id_comprador;
+    }
+
+    public int getId_vendedor() {
+        return id_vendedor;
+    }
+
+    public void setId_vendedor(int id_vendedor) {
+        this.id_vendedor = id_vendedor;
     }
 
     public Boleto getBoleto() {
@@ -99,25 +97,17 @@ public class Transaccion {
     public void setMonto(float monto) {
         this.monto = monto;
     }
-
-    public String getTipo_transaccion() {
-        return tipo_transaccion;
-    }
-
-    public void setTipo_transaccion(String tipo_transaccion) {
-        this.tipo_transaccion = tipo_transaccion;
+    
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + this.id_transaccion;
+        return hash;
     }
 
     @Override
     public String toString() {
-        return "Transaccion{" + "id_transaccion=" + id_transaccion + ", numero_transaccion=" + numero_transaccion + ", usuario=" + usuario + ", boleto=" + boleto + ", fecha_hora=" + fecha_hora + ", fecha_limite=" + fecha_limite + ", monto=" + monto + ", tipo_transaccion=" + tipo_transaccion + '}';
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 37 * hash + this.id_transaccion;
-        return hash;
+        return "Transaccion{" + "id_transaccion=" + id_transaccion + ", numero_transaccion=" + numero_transaccion + ", id_comprador=" + id_comprador + ", id_vendedor=" + id_vendedor + ", boleto=" + boleto + ", fecha_hora=" + fecha_hora + ", fecha_limite=" + fecha_limite + ", monto=" + monto + '}';
     }
 
     @Override

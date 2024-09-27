@@ -8,6 +8,7 @@ import BOs.UsuarioBO;
 import DTOs.UsuarioDTO;
 import dao.UsuariosDAO;
 import interfaces.IUsuariosDAO;
+import objetos.Usuario;
 
 /**
  *
@@ -15,8 +16,6 @@ import interfaces.IUsuariosDAO;
  */
 public class ControlInicioGUI {
     private IUsuariosDAO usuariosDAO;
-    
-    private UsuarioBO usuario;
     
     public ControlInicioGUI() {
         usuariosDAO = new UsuariosDAO();
@@ -29,11 +28,10 @@ public class ControlInicioGUI {
         } else return false;
     }
     
-    public boolean registrarUsuario(UsuarioDTO usuario) {
+    public Usuario registrarUsuario(UsuarioDTO usuario) {
         UsuarioBO usuarioTemp;
-        
         usuarioTemp = new UsuarioBO(usuario.getCorreo(), usuario.getContrasena(), usuario.getNombre_completo(), usuario.getFecha_nacimiento(), usuario.getDomicilio());
-        this.usuario = usuarioTemp;
-        return usuariosDAO.registrarUsuario(usuarioTemp);
+        usuariosDAO.registrarUsuario(usuarioTemp);
+        return new Usuario(usuario.getCorreo(), usuario.getContrasena(), usuario.getNombre_completo(), usuario.getFecha_nacimiento(), usuario.getDomicilio());
     }
 }

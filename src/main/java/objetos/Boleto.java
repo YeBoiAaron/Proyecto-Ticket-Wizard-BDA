@@ -15,6 +15,7 @@ public class Boleto {
     private int id_evento;
     private int id_usuario;
     private String numero_serie;
+    private float precio;
     private String fila;
     private String asiento;
     private String numero_control;
@@ -23,12 +24,13 @@ public class Boleto {
 
     public Boleto() {
     }
-    
-    public Boleto(int id_boleto, int id_evento, int id_usuario, String numero_serie, String fila, String asiento, String numero_control, String estado, boolean es_reventa) {
+
+    public Boleto(int id_boleto, int id_evento, int id_usuario, String numero_serie, float precio_original, String fila, String asiento, String numero_control, String estado, boolean es_reventa) {
         this.id_boleto = id_boleto;
         this.id_evento = id_evento;
         this.id_usuario = id_usuario;
         this.numero_serie = numero_serie;
+        this.precio = precio_original;
         this.fila = fila;
         this.asiento = asiento;
         this.numero_control = numero_control;
@@ -68,6 +70,14 @@ public class Boleto {
         this.numero_serie = numero_serie;
     }
 
+    public float getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(float precio) {
+        this.precio = precio;
+    }
+
     public String getFila() {
         return fila;
     }
@@ -100,18 +110,15 @@ public class Boleto {
         this.estado = estado;
     }
 
-    public boolean isReventa() {
+    public boolean isEs_reventa() {
         return es_reventa;
     }
 
-    public void setReventa(boolean es_reventa) {
+    public void setEs_reventa(boolean es_reventa) {
         this.es_reventa = es_reventa;
     }
-
-    @Override
-    public String toString() {
-        return "Boleto{" + "id_boleto=" + id_boleto + ", id_evento=" + id_evento + ", id_usuario=" + id_usuario + ", numero_serie=" + numero_serie + ", numero_control=" + numero_control + ", estado=" + estado + ", es_reventa=" + es_reventa + '}';
-    }
+    
+    
 
     @Override
     public int hashCode() {

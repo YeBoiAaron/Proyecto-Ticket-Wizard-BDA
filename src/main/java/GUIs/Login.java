@@ -123,7 +123,7 @@ public class Login extends javax.swing.JFrame {
 
     private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
         // TODO add your handling code here:
-        registrarUsuario ru = new registrarUsuario();
+        RegistrarUsuario ru = new RegistrarUsuario();
         ru.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegistrarseActionPerformed

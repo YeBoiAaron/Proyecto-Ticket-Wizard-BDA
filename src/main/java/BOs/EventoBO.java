@@ -52,7 +52,13 @@ public class EventoBO implements IEventoBO{
     }
     
     public EventoDTO convertirEventoDTO(Evento evento) {
-        EventoDTO eventoDTO = new EventoDTO(evento.getId_evento(), evento.getNombre(), evento.getFecha(), evento.getVenue(), evento.getCiudad(), evento.getEstado(), evento.getDescripcion());
+        EventoDTO eventoDTO = new EventoDTO(evento.getId_evento(), 
+                evento.getNombre(), 
+                evento.getFecha(), 
+                evento.getVenue(), 
+                evento.getCiudad(), 
+                evento.getEstado(), 
+                evento.getDescripcion());
         return eventoDTO;
     }
 }

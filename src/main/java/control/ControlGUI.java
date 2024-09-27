@@ -9,21 +9,26 @@ import DTOs.UsuarioDTO;
 import GUIs.CuentaUsuario;
 import GUIs.VistaEventos;
 import dao.UsuariosDAO;
+import guis.VistaBoletos;
 import interfaces.IUsuariosDAO;
 import javax.swing.JFrame;
+import objetos.Usuario;
 
 /**
  *
  * @author Aaron
  */
 public class ControlGUI {
+    private Usuario usuario = new Usuario();
     
     public ControlGUI() {
         
     }
     
     public void abrirVentanaBoletos(JFrame frame) {
-        
+        VistaBoletos boletos = new VistaBoletos();
+        boletos.setVisible(true);
+        frame.dispose();
     }
     
     public void abrirVentanaEventos(JFrame frame) {
@@ -37,4 +42,13 @@ public class ControlGUI {
         usuario.setVisible(true);
         frame.dispose();
     }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    
 }
